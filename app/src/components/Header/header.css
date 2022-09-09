@@ -1,0 +1,11 @@
+.navbarExtends {
+    z-index: 2;
+    box-shadow: 4px 4px 4px 4px rgb(0 0 0 / 20%)
+}
+.navbarExtends__links {
+    width: 80%;
+    flex-wrap: nowrap;
+    gap:10px
+}
+
+

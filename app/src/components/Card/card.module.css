@@ -1,0 +1,38 @@
+.card {
+    position: relative;
+    z-index: 2;
+    top: 6em;
+    width: 18rem;
+    gap: 18px;
+    padding: 20px;
+    box-shadow: 2px 2px 2px 2px rgb(0 0 0 / 10%);
+}
+
+.btn {
+    border-color: rgb(94, 94, 94);
+}
+
+.card__inputR {
+    display: block; /* Блочный элемент */
+    position: absolute;
+    color: #aaa; /* Цвет подсказки */
+    transform: translateY(2rem); /* Сдвигаем вверх */
+    line-height: 1rem;  /*Межстрочный интервал */
+    
+}
+.card__inputG {
+    display: block; /* Блочный элемент */
+    position: absolute;
+    color: #aaa; /* Цвет подсказки */
+    transform: translateY(5rem); /* Сдвигаем вверх */
+    line-height: 1rem;  /*Межстрочный интервал */
+    transition: 0.5s; /* Время трансформации */ 
+}
+.card__inputB {
+    display: block; /* Блочный элемент */
+    position: absolute;
+    color: #aaa; /* Цвет подсказки */
+    transform: translateY(8rem); /* Сдвигаем вверх */
+    line-height: 1rem;  /*Межстрочный интервал */
+    transition: 0.5s; /* Время трансформации */ 
+}
