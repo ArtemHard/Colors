@@ -20,6 +20,9 @@
     line-height: 1rem;  /*Межстрочный интервал */
     
 }
+
+
+
 .card__inputG {
     display: block; /* Блочный элемент */
     position: absolute;

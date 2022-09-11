@@ -1,0 +1,8 @@
+.card__inputR__input {
+    border-color: red;
+    color: red;
+}
+.card__inputR__input:focus {
+    border-color: red;
+    color: red;
+}
