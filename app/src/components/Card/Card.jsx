@@ -1,104 +1,158 @@
 import React from "react";
+import { useEffect } from "react";
+import { useRef } from "react";
 import { useState } from "react";
 import styles from "./card.module.css";
 import "./index.css";
 
 const Card = () => {
-  const [rColor, setRColor] = useState("255");
-  const [gColor, setGColor] = useState("228");
-  const [bColor, setBColor] = useState("196");
+  const [rColor, setRColor] = useState("Не указано значение");
+  const [gColor, setGColor] = useState("Не указано значение");
+  const [bColor, setBColor] = useState("Не указано значение");
 
-  const [rColorBorder, setRColorBorder] = useState("");
-  const [gColorBorder, setGColorBorder] = useState("");
-  const [bColorBorder, setBColorBorder] = useState("");
+  const [rColorBorder, setRColorBorder] = useState("card__inputR__input");
+  const [gColorBorder, setGColorBorder] = useState("card__inputR__input");
+  const [bColorBorder, setBColorBorder] = useState("card__inputR__input");
 
-  const rgbNumbers = /^\d{0,3}$/;
-  const regExpEmptyStr = /^\d{1,3}$/;
+  const stateColor = {
+    R: rColor,
+    G: gColor,
+    B: bColor,
+  };
+
+  // console.log({ stateColor });
 
   const changeRColor = (e) => {
-    if (rgbNumbers.test(e.target.value) && e.target.value <= 255) {
-      if (regExpEmptyStr.test(e.target.value)) {
-        setRColorBorder("");
-        setRColor("256");
-      } else {
-        setRColor(e.target.value);
-        setRColorBorder("");
-      }
+    const value = e.target.value.trim();
+
+    if (regExpEmptyStr.test(value) && value <= 255) {
+      setRColor(value.padStart(3, "0"));
+      setRColorBorder("");
     } else {
+      const regExpSpace = /\s/g;
+      setRColor(
+        "Не верное значение R: " +
+          (value === ""
+            ? "значение не указанно"
+            : regExpSpace.test(value)
+            ? "Нужно убрать пробелы"
+            : value)
+      );
       setRColorBorder("card__inputR__input");
     }
   };
+
   const changeGColor = (e) => {
-    if (rgbNumbers.test(e.target.value) && e.target.value <= 255) {
-      if (regExpEmptyStr.test(e.target.value)) {
-        setGColorBorder("");
-        setGColor("256");
-      } else {
-        setGColor(e.target.value);
-        setGColorBorder("");
-      }
+    const value = e.target.value.trim();
+
+    if (regExpEmptyStr.test(value) && value <= 255) {
+      setGColor(value.padStart(3, "0"));
+      setGColorBorder("");
     } else {
-      setGColorBorder("card__inputR__input");
+      const regExpSpace = /\s/g;
+      setGColor(
+        "Не верное значение G: " +
+          (value === ""
+            ? "значение не указанно"
+            : regExpSpace.test(value)
+            ? "Нужно убрать пробелы"
+            : value)
+      );
+      setGColorBorder("card__inputG__input");
     }
   };
   const changeBColor = (e) => {
-    if (rgbNumbers.test(e.target.value) && e.target.value <= 255) {
-      if (regExpEmptyStr.test(e.target.value)) {
-        setBColorBorder("");
-        setBColor("256");
-      } else {
-        setBColor(e.target.value);
-        setBColorBorder("");
-      }
+    const value = e.target.value.trim();
+
+    if (regExpEmptyStr.test(value) && value <= 255) {
+      setBColor(value.padStart(3, "0"));
+      setBColorBorder("");
     } else {
-      setBColorBorder("card__inputR__input");
+      const regExpSpace = /\s/g;
+      setBColor(
+        "Не верное значение B: " +
+          (value === ""
+            ? "значение не указанно"
+            : regExpSpace.test(value)
+            ? "Нужно убрать пробелы"
+            : value)
+      );
+      setBColorBorder("card__inputB__input");
     }
   };
 
-  const addColorHandler = (e) => {
-    e.preventDefault();
-    const formData = Object.fromEntries(new FormData(e.target).entries());
-    console.log("Данные введённые в инпуты >>>> " + Object.values(formData));
+  // const addColorClickHandler = (e) => {
+  //   e.preventDefault();
 
-    // TEST
-    const stateData = {
-      R: rColor,
-      G: gColor,
-      B: bColor,
-    };
-    console.log("Данные из стейтов >>>> " + Object.values(stateData));
+  //   const rgbNumbers = /^\d{1,3}$/;
 
-    ///
+  //   let flag;
 
-    const rgbNumbers = /^\d{0,3}$/;
+  //   for (let key in stateColor) {
+  //     if (stateColor.hasOwnProperty(key)) {
+  //       stateColor[key] = stateColor[key];
+  //       if (!rgbNumbers.test(stateColor[key]) || stateColor[key] >= 256) {
+  //         flag ? (flag += `, \n${stateColor[key]}`) : (flag = stateColor[key]);
+  //       }
+  //     }
+  //   }
 
+  //   flag ? alert(flag) : console.log("Всё чётко");
+  //   // записывать в state
+  // };
+
+  const regExpEmptyStr = /^\d{1,3}$/;
+
+  /*
+  useEffect(() => {
+    const rgbNumbers = /^\d{1,3}$/;
+    const cloneStateColor = stateColor;
     let flag;
-
-    for (let key in formData) {
-      if (formData.hasOwnProperty(key)) {
-        formData[key] = formData[key].padStart(3, "0");
-        if (!rgbNumbers.test(formData[key]) || formData[key] >= 256) {
-          flag
-            ? (flag += `, ${key} : ${formData[key]}`)
-            : (flag = `Не корректное значение ${key} : ${formData[key]}`);
-        }
+    console.log("USE EFFECT");
+    for (let key in stateColor) {
+      if (cloneStateColor.hasOwnProperty(key)) {
+        // console.log(cloneStateColor[key]);
+        // cloneStateColor[key] = cloneStateColor[key];
+        // debugger;
+        if (
+          cloneStateColor[key] >= 256 ||
+          !rgbNumbers.test(cloneStateColor[key])
+        ) {
+          flag = false;
+        } else flag = true;
       }
     }
 
-    // flag ? alert(flag) : console.log("Всё чётко");
-    console.log(formData);
-    // записывать в state
-  };
+    disabled.current = flag;
+    console.log(disabled.current);
+  }, [rColor, gColor, bColor]);
 
-  // есть state можно в зависимости от значения(подсветка красным) отключать кнопку отправки формы
+  const addColorClickHandler = (e) => {
+    console.log("отправка формы");
+  };
+*/
+  const [btnDis, setBtnDis] = useState(true);
+
+  // let disabled = useRef();
+  // console.log(disabled.current);
+  useEffect(() => {
+    // debugger;
+    if (
+      rColorBorder.length > 1 ||
+      gColorBorder.length > 1 ||
+      bColorBorder.length > 1
+    ) {
+      setBtnDis(true);
+    } else setBtnDis(false);
+  }, [rColorBorder, gColorBorder, bColorBorder]);
+
+  const addColorClickHandler = (e) => {
+    console.log("отправка формы");
+  };
 
   return (
     <div>
-      <form
-        className={"card " + styles.card}
-        type='submit'
-        onSubmit={addColorHandler}
-      >
+      <form className={"card " + styles.card}>
         <input
           className={"form-control form-control-sm " + rColorBorder}
           type='text'
@@ -136,9 +190,11 @@ const Card = () => {
           введите значение от 0 до 255
         </label>
         <button
-          // disabled
-          type='submit'
+          disabled={btnDis}
+          id='btnConfirm'
+          type='button'
           className={"btn btn-light " + styles.btn}
+          onClick={addColorClickHandler}
         >
           Confirm
         </button>

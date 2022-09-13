@@ -6,3 +6,19 @@
     border-color: red;
     color: red;
 }
+.card__inputG__input {
+    border-color: red;
+    color: red;
+}
+.card__inputG__input:focus {
+    border-color: red;
+    color: red;
+}
+.card__inputB__input {
+    border-color: red;
+    color: red;
+}
+.card__inputB__input:focus {
+    border-color: red;
+    color: red;
+}
