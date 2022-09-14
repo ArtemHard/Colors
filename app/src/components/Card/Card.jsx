@@ -22,15 +22,19 @@ const Card = () => {
     G: gColor,
     B: bColor,
   };
+  // console.log(stateColor);
   const regExpEmptyStr = /^\d{1,3}$/;
+  const zeroRegExp = /^[0]{1,}/gm;
 
   const { generateColor } = useContext(colorsContext);
 
   const changeRColor = (e) => {
-    const value = e.target.value.trim();
-
-    if (regExpEmptyStr.test(value) && value <= 255) {
-      setRColor(value.padStart(3, "0"));
+    const value = e.target.value
+      .trim()
+      .replace(zeroRegExp, "")
+      .padStart(3, "0");
+    if (value <= 255) {
+      setRColor(value);
       setRColorBorder("");
     } else {
       const regExpSpace = /\s/g;
@@ -47,9 +51,11 @@ const Card = () => {
   };
 
   const changeGColor = (e) => {
-    const value = e.target.value.trim();
-
-    if (regExpEmptyStr.test(value) && value <= 255) {
+    const value = e.target.value
+      .trim()
+      .replace(zeroRegExp, "")
+      .padStart(3, "0");
+    if (value <= 255) {
       setGColor(value.padStart(3, "0"));
       setGColorBorder("");
     } else {
@@ -67,9 +73,11 @@ const Card = () => {
   };
 
   const changeBColor = (e) => {
-    const value = e.target.value.trim();
-
-    if (regExpEmptyStr.test(value) && value <= 255) {
+    const value = e.target.value
+      .trim()
+      .replace(zeroRegExp, "")
+      .padStart(3, "0");
+    if (value <= 255) {
       setBColor(value.padStart(3, "0"));
       setBColorBorder("");
     } else {
