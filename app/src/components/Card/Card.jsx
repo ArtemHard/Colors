@@ -1,7 +1,8 @@
 import React from "react";
 import { useEffect } from "react";
-import { useRef } from "react";
+import { useContext } from "react";
 import { useState } from "react";
+import { colorsContext } from "../contexts/colorsContext";
 import styles from "./card.module.css";
 import "./index.css";
 
@@ -14,13 +15,16 @@ const Card = () => {
   const [gColorBorder, setGColorBorder] = useState("card__inputR__input");
   const [bColorBorder, setBColorBorder] = useState("card__inputR__input");
 
+  const [btnDis, setBtnDis] = useState(true);
+
   const stateColor = {
     R: rColor,
     G: gColor,
     B: bColor,
   };
+  const regExpEmptyStr = /^\d{1,3}$/;
 
-  // console.log({ stateColor });
+  const { generateColor } = useContext(colorsContext);
 
   const changeRColor = (e) => {
     const value = e.target.value.trim();
@@ -61,6 +65,7 @@ const Card = () => {
       setGColorBorder("card__inputG__input");
     }
   };
+
   const changeBColor = (e) => {
     const value = e.target.value.trim();
 
@@ -81,62 +86,7 @@ const Card = () => {
     }
   };
 
-  // const addColorClickHandler = (e) => {
-  //   e.preventDefault();
-
-  //   const rgbNumbers = /^\d{1,3}$/;
-
-  //   let flag;
-
-  //   for (let key in stateColor) {
-  //     if (stateColor.hasOwnProperty(key)) {
-  //       stateColor[key] = stateColor[key];
-  //       if (!rgbNumbers.test(stateColor[key]) || stateColor[key] >= 256) {
-  //         flag ? (flag += `, \n${stateColor[key]}`) : (flag = stateColor[key]);
-  //       }
-  //     }
-  //   }
-
-  //   flag ? alert(flag) : console.log("Всё чётко");
-  //   // записывать в state
-  // };
-
-  const regExpEmptyStr = /^\d{1,3}$/;
-
-  /*
   useEffect(() => {
-    const rgbNumbers = /^\d{1,3}$/;
-    const cloneStateColor = stateColor;
-    let flag;
-    console.log("USE EFFECT");
-    for (let key in stateColor) {
-      if (cloneStateColor.hasOwnProperty(key)) {
-        // console.log(cloneStateColor[key]);
-        // cloneStateColor[key] = cloneStateColor[key];
-        // debugger;
-        if (
-          cloneStateColor[key] >= 256 ||
-          !rgbNumbers.test(cloneStateColor[key])
-        ) {
-          flag = false;
-        } else flag = true;
-      }
-    }
-
-    disabled.current = flag;
-    console.log(disabled.current);
-  }, [rColor, gColor, bColor]);
-
-  const addColorClickHandler = (e) => {
-    console.log("отправка формы");
-  };
-*/
-  const [btnDis, setBtnDis] = useState(true);
-
-  // let disabled = useRef();
-  // console.log(disabled.current);
-  useEffect(() => {
-    // debugger;
     if (
       rColorBorder.length > 1 ||
       gColorBorder.length > 1 ||
@@ -147,7 +97,8 @@ const Card = () => {
   }, [rColorBorder, gColorBorder, bColorBorder]);
 
   const addColorClickHandler = (e) => {
-    console.log("отправка формы");
+    e.preventDefault();
+    generateColor(stateColor);
   };
 
   return (

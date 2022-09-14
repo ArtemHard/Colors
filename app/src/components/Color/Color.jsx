@@ -1,8 +1,14 @@
 import React from "react";
+import { useContext } from "react";
+import { colorsContext } from "../contexts/colorsContext";
 import styles from "./color.module.css";
 
 const Color = () => {
-  return <div className={styles.container}></div>;
+  const { colors } = useContext(colorsContext);
+
+  return (
+    <div className={styles.container} style={{ backgroundColor: colors }}></div>
+  );
 };
 
 export default Color;

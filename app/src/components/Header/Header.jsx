@@ -11,7 +11,7 @@ const Header = () => {
           Main
         </NavLink>
         <NavLink className='nav-link' to='/rgba'>
-          RGBA
+          RGB
         </NavLink>
         <Link className='nav-link' to='/color'>
           Color
